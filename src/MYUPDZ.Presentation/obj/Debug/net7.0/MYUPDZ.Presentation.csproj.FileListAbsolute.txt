@@ -1,0 +1,12 @@
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\bin\Debug\net7.0\MYUPDZ.Presentation.deps.json
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\bin\Debug\net7.0\MYUPDZ.Presentation.dll
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\bin\Debug\net7.0\MYUPDZ.Presentation.pdb
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\obj\Debug\net7.0\MYUPDZ.Presentation.csproj.AssemblyReference.cache
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\obj\Debug\net7.0\MYUPDZ.Presentation.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\obj\Debug\net7.0\MYUPDZ.Presentation.AssemblyInfoInputs.cache
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\obj\Debug\net7.0\MYUPDZ.Presentation.AssemblyInfo.cs
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\obj\Debug\net7.0\MYUPDZ.Presentation.csproj.CoreCompileInputs.cache
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\obj\Debug\net7.0\MYUPDZ.Presentation.dll
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\obj\Debug\net7.0\refint\MYUPDZ.Presentation.dll
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\obj\Debug\net7.0\MYUPDZ.Presentation.pdb
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Presentation\obj\Debug\net7.0\ref\MYUPDZ.Presentation.dll

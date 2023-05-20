@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\MYUPDZ.Api.props" />
+</Project>

@@ -1,0 +1,15 @@
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\obj\Debug\net7.0\MYUPDZ.Application.csproj.AssemblyReference.cache
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\obj\Debug\net7.0\MYUPDZ.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\obj\Debug\net7.0\MYUPDZ.Application.AssemblyInfoInputs.cache
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\obj\Debug\net7.0\MYUPDZ.Application.AssemblyInfo.cs
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\obj\Debug\net7.0\MYUPDZ.Application.csproj.CoreCompileInputs.cache
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\bin\Debug\net7.0\MYUPDZ.Application.deps.json
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\bin\Debug\net7.0\MYUPDZ.Application.dll
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\bin\Debug\net7.0\MYUPDZ.Application.pdb
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\bin\Debug\net7.0\MYUPDZ.Domain.dll
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\bin\Debug\net7.0\MYUPDZ.Domain.pdb
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\obj\Debug\net7.0\MYUPDZ.Application.csproj.CopyComplete
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\obj\Debug\net7.0\MYUPDZ.Application.dll
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\obj\Debug\net7.0\refint\MYUPDZ.Application.dll
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\obj\Debug\net7.0\MYUPDZ.Application.pdb
+C:\Users\Moncef\source\repos\MYUPDZ\src\MYUPDZ.Application\obj\Debug\net7.0\ref\MYUPDZ.Application.dll
