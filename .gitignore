@@ -1,0 +1,7 @@
+.vs/
+.cr/
+# Ignore all files with a specific extension
+*.log
+
+# Ignore all files in a specific directory with a specific extension
+logs/*.log
