@@ -9,7 +9,7 @@ using MYUPDZ.Domain.AppMetaData;
 
 namespace MYUPDZ.Api.Controllers;
 
-[ApiController]
+
 public class Fonctionnaire : ApiControllerBase
 {
 
@@ -26,7 +26,7 @@ public class Fonctionnaire : ApiControllerBase
         return NewResult(await Mediator.Send(new GetFonctionnaireSingleQuery(id)));
     }
 
-    [HttpPost(Router.FonctionnaireRoute.Create)]
+    [HttpPost(Router.FonctionnaireRoute.Add)]
     public async Task<IActionResult> CreateFonctionnaireBy([FromBody] AddFonctionnaireCommand command)
     {
         return NewResult(await Mediator.Send(command));

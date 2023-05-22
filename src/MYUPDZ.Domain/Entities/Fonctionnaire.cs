@@ -10,7 +10,7 @@ public class Fonctionnaire : BaseAuditableEntity
 
     }
 
-    public Fonctionnaire(string nom, string prenom, string matricule, string email, DateTime dateEmbauche, decimal salaire, string? user)
+    public Fonctionnaire(string nom, string prenom, string matricule, string email, DateTime dateEmbauche, decimal salaire)
     {
         Nom = nom;
         Prenom = prenom;
@@ -18,10 +18,9 @@ public class Fonctionnaire : BaseAuditableEntity
         Email = email;
         DateEmbauche = dateEmbauche;
         Salaire = salaire;
-        User = user;
     }
 
-    public Fonctionnaire UpdateWithoutUser(string nom, string prenom, string matricule, string email, DateTime dateEmbauche, decimal salaire)
+    public Fonctionnaire Update(string nom, string prenom, string matricule, string email, DateTime dateEmbauche, decimal salaire)
     {
         Nom = nom;
         Prenom = prenom;
@@ -32,18 +31,12 @@ public class Fonctionnaire : BaseAuditableEntity
         return this;
     }
 
-    public Fonctionnaire UpdateWithUser(string nom, string prenom, string matricule, string email, DateTime dateEmbauche, decimal salaire, string? user)
-    {
-        Nom = nom;
-        Prenom = prenom;
-        Matricule = matricule;
-        Email = email;
-        DateEmbauche = dateEmbauche;
-        Salaire = salaire;
-        User = user;
-        return this;
-    }
 
+    public bool HasUser => !string.IsNullOrEmpty(User);
+    public void AssignUser(string userId)
+    {
+        User = userId;
+    }
     public string Nom { get; private set; }
     public string Prenom { get; private set; }
     public string Matricule { get; private set; }

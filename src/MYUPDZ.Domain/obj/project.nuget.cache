@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "t3ky7LtQ3JQvtq4KFMXv64gJuxvCtFl9ZcSOQDPp/ExFudVU5JKimTkTd5tgxKrKZGsAMXakHi3nk+6MvyxfKA==",
+  "dgSpecHash": "88cjo9RGwAQtXMfb9MsaY5JbXIsxcyHHgw2JdW6Xl+Nd8YpZOwCV3Bpp9hbUvJVR159nOC7V7hJHF/KVQCq0Dg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Moncef\\Documents\\MYUPDZ\\src\\MYUPDZ.Domain\\MYUPDZ.Domain.csproj",
+  "projectFilePath": "C:\\Users\\Moncef\\source\\repos\\MYUPDZ\\src\\MYUPDZ.Domain\\MYUPDZ.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

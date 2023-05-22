@@ -6,12 +6,12 @@ using Microsoft.IdentityModel.Tokens;
 using MYUPDZ.Application.Common.Interfaces;
 using MYUPDZ.Application.Common.Interfaces.Repository;
 using MYUPDZ.Domain.Enums;
+using MYUPDZ.Infrastructure.Common.Option;
 using MYUPDZ.Infrastructure.Common.Repository;
-using MYUPDZ.Infrastructure.Context;
 using MYUPDZ.Infrastructure.Identity;
 using MYUPDZ.Infrastructure.Interceptors;
-using MYUPDZ.Infrastructure.Option;
 using MYUPDZ.Infrastructure.Persistance;
+using MYUPDZ.Infrastructure.Persistence;
 using MYUPDZ.Infrastructure.Repository;
 using MYUPDZ.Infrastructure.Services;
 using System.Text;
@@ -55,6 +55,8 @@ namespace MYUPDZ.Infrastructure
             services.AddScoped<AuditableEntitySaveChangesInterceptor>();
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
+            services.AddTransient<ISignInServices, SignInServices>();
+
 
             // Configure JWT authentication
             var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -79,8 +81,6 @@ namespace MYUPDZ.Infrastructure
             // Configure authorization policies
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator"));
-
                 foreach (string permission in new Permission())
                 {
                     options.AddPolicy(permission, policy =>

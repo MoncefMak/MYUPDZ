@@ -2,7 +2,7 @@
 using MYUPDZ.Application.Common.Interfaces.Repository;
 using MYUPDZ.Domain.Entities;
 using MYUPDZ.Infrastructure.Common.Repository;
-using MYUPDZ.Infrastructure.Context;
+using MYUPDZ.Infrastructure.Persistence;
 
 namespace MYUPDZ.Infrastructure.Repository;
 

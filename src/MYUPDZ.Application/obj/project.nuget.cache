@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fz7QFCnf02qG8oz4Yx5vS7gbV9SJv+DLQ0W9/O40K1RJanpToEFZWSNlOi3gpJz4oA/dxGEVfjD150dJihaeIg==",
+  "dgSpecHash": "UDHhS6Gs2OTp6DNNK3detOyxP1gvpKtfAYPaFfxcJbsVgy/+0p7w9KrNa8ytTa9HE75EQIOyE7Qbc7EV23cA2Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Moncef\\Documents\\MYUPDZ\\src\\MYUPDZ.Application\\MYUPDZ.Application.csproj",
+  "projectFilePath": "C:\\Users\\Moncef\\source\\repos\\MYUPDZ\\src\\MYUPDZ.Application\\MYUPDZ.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Moncef\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Moncef\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

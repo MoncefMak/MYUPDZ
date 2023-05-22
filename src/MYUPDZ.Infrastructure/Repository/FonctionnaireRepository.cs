@@ -3,7 +3,7 @@ using MYUPDZ.Application.Common.Interfaces;
 using MYUPDZ.Application.Common.Interfaces.Repository;
 using MYUPDZ.Domain.Entities;
 using MYUPDZ.Infrastructure.Common.Repository;
-using MYUPDZ.Infrastructure.Context;
+using MYUPDZ.Infrastructure.Persistence;
 
 namespace MYUPDZ.Infrastructure.Repository;
 
@@ -59,7 +59,14 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
                 }
 
                 // Créer un nouveau fonctionnaire.
-                await AddAsync(new Fonctionnaire(nom, prenom, matricule, email, dateEmbauche, salaire, userId));
+                var fonctionnaire = new Fonctionnaire(nom, prenom, matricule, email, dateEmbauche, salaire);
+
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    fonctionnaire.AssignUser(userId);
+                }
+
+                await AddAsync(fonctionnaire);
 
                 Commit();
 
@@ -73,7 +80,6 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
             }
         }
     }
-
 
     public async Task<bool> MatriculeExistIdAsync(int id, string matricule)
     {
@@ -90,10 +96,8 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
                 {
                     return false;
                 }
-
                 var fonctionnaire = await GetByIdAsync(id);
-
-                if (fonctionnaire.User != null)
+                if (fonctionnaire.HasUser)
                 {
                     if (email != null && password != null)
                     {
@@ -109,11 +113,11 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
                         {
                             throw new Exception("Failed to create user.");
                         }
-                        fonctionnaire.UpdateWithUser(nom, prenom, matricule, email, dateEmbauche, salaire, userId);
+                        fonctionnaire.AssignUser(userId);
                     }
                 }
 
-                fonctionnaire.UpdateWithoutUser(nom, prenom, matricule, email, dateEmbauche, salaire);
+                fonctionnaire.Update(nom, prenom, matricule, email, dateEmbauche, salaire);
                 await UpdateAsync(fonctionnaire);
                 Commit();
                 return true;

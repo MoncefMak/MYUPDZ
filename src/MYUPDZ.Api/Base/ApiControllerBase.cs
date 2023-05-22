@@ -6,7 +6,6 @@ using System.Net;
 namespace MYUPDZ.Api.Base;
 
 [ApiController]
-
 public class ApiControllerBase : ControllerBase
 {
     private ISender _mediatorInstance;

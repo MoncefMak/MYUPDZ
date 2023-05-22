@@ -9,10 +9,8 @@ using MYUPDZ.Domain.AppMetaData;
 
 namespace MYUPDZ.Api.Controllers;
 
-[ApiController]
 public class CategorieController : ApiControllerBase
 {
-
     [HttpGet(Router.CategorieRoute.List)]
     public async Task<IActionResult> GetCategorieList()
     {
@@ -26,7 +24,7 @@ public class CategorieController : ApiControllerBase
         return NewResult(await Mediator.Send(new GetCategorieSingleQuery(id)));
     }
 
-    [HttpPost(Router.CategorieRoute.Create)]
+    [HttpPost(Router.CategorieRoute.Add)]
     public async Task<IActionResult> CreateCategorieBy([FromBody] AddCategorieCommand command)
     {
         return NewResult(await Mediator.Send(command));

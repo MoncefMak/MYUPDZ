@@ -1,4 +1,6 @@
 ﻿
+using MYUPDZ.Application.Common.Models;
+
 namespace MYUPDZ.Application.Common.Bases;
 
 public class ResponseHandler
@@ -51,6 +53,29 @@ public class ResponseHandler
         };
     }
 
+
+    public Response<T> UnprocessableUser<T>(Result result)
+    {
+        return new Response<T>()
+        {
+            StatusCode = System.Net.HttpStatusCode.UnprocessableEntity,
+            Succeeded = false,
+            Message = result.Errors?.FirstOrDefault() ?? "Unprocessable Entity",
+            Errors = result.Errors?.ToList() ?? new List<string>()
+        };
+    }
+
+    public Response<T> ErrorIdentityEntity<T>(Result result)
+    {
+        return new Response<T>()
+        {
+            StatusCode = System.Net.HttpStatusCode.UnprocessableEntity,
+            Succeeded = false,
+            Message = result.Errors.FirstOrDefault() ?? "Unprocessable Entity"
+        };
+    }
+
+
     public Response<T> UnprocessableEntity<T>(string Message = null)
     {
         return new Response<T>()
@@ -82,5 +107,17 @@ public class ResponseHandler
             Meta = Meta
         };
     }
+    public Response<T> Login<T>(T entity, string token)
+    {
+        return new Response<T>()
+        {
+            Data = entity,
+            StatusCode = System.Net.HttpStatusCode.Created,
+            Succeeded = true,
+            Message = "Login Successfully",
+            Token = token
+        };
+    }
+
 
 }

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using MYUPDZ.Application.Common.Interfaces;
 using MYUPDZ.Application.Common.Models;
+using MYUPDZ.Domain.Enums;
+using System.Security.Claims;
 
 namespace MYUPDZ.Infrastructure.Identity;
 
@@ -23,7 +25,6 @@ public class IdentityService : IIdentityService
         var user = await _userManager.FindByIdAsync(userId);
         return user.UserName;
     }
-
 
     public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string email, string password)
     {
@@ -126,4 +127,67 @@ public class IdentityService : IIdentityService
 
         return result.ToApplicationResult();
     }
+
+    public async Task<bool> CheckPermissionExists(string permission)
+    {
+        return new Permission().Contains(permission);
+    }
+
+
+    public async Task<Result> AddUserPermissionAsync(string userId, string permission)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+
+        if (user == null)
+        {
+            return Result.Failure("User not found.");
+        }
+
+        var claims = await _userManager.GetClaimsAsync(user);
+        bool hasPermission = claims.Any(c => c.Type == "permission" && c.Value == permission);
+
+        if (hasPermission)
+        {
+            return Result.Failure("Permission already exists for the user.");
+        }
+
+        // Add the permission claim to the user
+        var result = await _userManager.AddClaimAsync(user, new Claim("permission", permission));
+
+        return result.ToApplicationResult();
+    }
+
+
+    public async Task<bool> ExistsActiveUserAsync(string id)
+    {
+        // Find the user by their ID
+        var user = await _userManager.FindByIdAsync(id);
+
+        // Check if the user exists and is active
+        // If the user is not null and LockoutEnabled is false, then the user is considered active
+        return user != null && !user.LockoutEnabled;
+    }
+
+    public async Task<Result> DeleteUserPermissionAsync(string userId, string permission)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+
+        if (user == null)
+        {
+            return Result.Failure("User not found.");
+        }
+
+        var claims = await _userManager.GetClaimsAsync(user);
+        var permissionClaims = claims.Where(c => c.Type == "permission" && c.Value == permission).ToList();
+
+        if (permissionClaims.Count == 0)
+        {
+            return Result.Failure("Permission not found for the user.");
+        }
+
+        var result = await _userManager.RemoveClaimsAsync(user, permissionClaims);
+
+        return result.ToApplicationResult();
+    }
+
 }

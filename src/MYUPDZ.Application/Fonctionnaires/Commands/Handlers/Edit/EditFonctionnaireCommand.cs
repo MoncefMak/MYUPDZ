@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using MYUPDZ.Application.Common.Bases;
+using MYUPDZ.Application.Common.Behaviours;
 
 namespace MYUPDZ.Application.Fonctionnaires.Commands.Handlers.Edit;
 
+[Authorize(Policy = "UPDATE_FONCTIONNAIRE")]
 public class EditFonctionnaireCommand : IRequest<Response<string>>
 {
     public int id { get; set; }

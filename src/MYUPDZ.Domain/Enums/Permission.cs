@@ -4,12 +4,11 @@ namespace MYUPDZ.Domain.Enums;
 
 public class Permission : IEnumerable<string>
 {
-    private static ReadOnlySpan<string> Actions => new[] { "ADD", "UPDATE", "DELETE", "VIEW" };
+    private static ReadOnlySpan<string> Actions => new[] { "VIEW", "ADD", "UPDATE", "DELETE", "ARCHIVE" };
 
     private static ReadOnlySpan<string> Permissions => new[]
     {
-        "CATEGORIE", "SOUS_CATEGORIE", "PRODUIT", "PRODUIT_TAILLE", "PRODUIT_COULEUR", "PRODUIT_LOT",
-        "PRODUIT_MAGASIN", "PRODUIT_STOCK", "PRODUIT_MOUVEMENT", "TRS_TRESORERIE", "TRS_CLIENT_FOURNISSEUR"
+        "CATEGORIE", "SOUS_CATEGORIE", "FONCTIONNAIRE", "PERMISSIONS"
     };
 
     public IEnumerator<string> GetEnumerator()

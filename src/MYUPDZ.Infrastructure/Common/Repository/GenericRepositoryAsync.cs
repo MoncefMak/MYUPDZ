@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using MYUPDZ.Application.Common.Interfaces;
-using MYUPDZ.Infrastructure.Context;
+using MYUPDZ.Infrastructure.Persistence;
 
 namespace MYUPDZ.Infrastructure.Common.Repository;
 

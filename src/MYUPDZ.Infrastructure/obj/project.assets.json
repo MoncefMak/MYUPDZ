@@ -2527,11 +2527,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Moncef\\Documents\\MYUPDZ\\src\\MYUPDZ.Infrastructure\\MYUPDZ.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Moncef\\source\\repos\\MYUPDZ\\src\\MYUPDZ.Infrastructure\\MYUPDZ.Infrastructure.csproj",
       "projectName": "MYUPDZ.Infrastructure",
-      "projectPath": "C:\\Users\\Moncef\\Documents\\MYUPDZ\\src\\MYUPDZ.Infrastructure\\MYUPDZ.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\Moncef\\source\\repos\\MYUPDZ\\src\\MYUPDZ.Infrastructure\\MYUPDZ.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Moncef\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Moncef\\Documents\\MYUPDZ\\src\\MYUPDZ.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\Moncef\\source\\repos\\MYUPDZ\\src\\MYUPDZ.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 22.1\\Components\\Offline Packages",
@@ -2561,8 +2561,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Moncef\\Documents\\MYUPDZ\\src\\MYUPDZ.Application\\MYUPDZ.Application.csproj": {
-              "projectPath": "C:\\Users\\Moncef\\Documents\\MYUPDZ\\src\\MYUPDZ.Application\\MYUPDZ.Application.csproj"
+            "C:\\Users\\Moncef\\source\\repos\\MYUPDZ\\src\\MYUPDZ.Application\\MYUPDZ.Application.csproj": {
+              "projectPath": "C:\\Users\\Moncef\\source\\repos\\MYUPDZ\\src\\MYUPDZ.Application\\MYUPDZ.Application.csproj"
             }
           }
         }

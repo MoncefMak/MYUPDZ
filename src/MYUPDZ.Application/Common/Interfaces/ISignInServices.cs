@@ -2,5 +2,6 @@
 
 public interface ISignInServices
 {
-    Task<(Result Result, string UserId)> LoginUserAsync(string userName, string password);
+    Task<(Result Result, string UserId, string Token)> LoginUserAsync(string userName, string password);
+    Task<string> GenerateToken(string userId, string email);
 }

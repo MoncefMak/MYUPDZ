@@ -10,7 +10,6 @@ using MYUPDZ.Domain.AppMetaData;
 
 namespace MYUPDZ.Api.Controllers
 {
-    [ApiController]
     public class SousCategorieController : ApiControllerBase
     {
         private readonly IMediator _mediator;
@@ -32,7 +31,7 @@ namespace MYUPDZ.Api.Controllers
             return NewResult(await Mediator.Send(new GetSousCategorieSingleQuery(id)));
         }
 
-        [HttpPost(Router.SousCategorieRoute.Create)]
+        [HttpPost(Router.SousCategorieRoute.Add)]
         public async Task<IActionResult> CreateSousCategorieBy([FromBody] AddSousCategorieCommand command)
         {
             return NewResult(await Mediator.Send(command));

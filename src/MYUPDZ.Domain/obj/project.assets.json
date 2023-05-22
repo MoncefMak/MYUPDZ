@@ -16,11 +16,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Moncef\\Documents\\MYUPDZ\\src\\MYUPDZ.Domain\\MYUPDZ.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Moncef\\source\\repos\\MYUPDZ\\src\\MYUPDZ.Domain\\MYUPDZ.Domain.csproj",
       "projectName": "MYUPDZ.Domain",
-      "projectPath": "C:\\Users\\Moncef\\Documents\\MYUPDZ\\src\\MYUPDZ.Domain\\MYUPDZ.Domain.csproj",
+      "projectPath": "C:\\Users\\Moncef\\source\\repos\\MYUPDZ\\src\\MYUPDZ.Domain\\MYUPDZ.Domain.csproj",
       "packagesPath": "C:\\Users\\Moncef\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Moncef\\Documents\\MYUPDZ\\src\\MYUPDZ.Domain\\obj\\",
+      "outputPath": "C:\\Users\\Moncef\\source\\repos\\MYUPDZ\\src\\MYUPDZ.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 22.1\\Components\\Offline Packages",

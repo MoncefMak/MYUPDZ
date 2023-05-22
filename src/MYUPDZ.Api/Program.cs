@@ -10,29 +10,30 @@ builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
 builder.Services.AddWebUIServices();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseOpenApi(); // Replace app.UseSwagger();
+    app.UseSwaggerUi3(); // Replace app.UseSwaggerUi();
 
-    using (var scope = app.Services.CreateScope())
+    // Initialise and seed database
+    using (IServiceScope scope = app.Services.CreateScope())
     {
-        var initialiser = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
+        DatabaseInitializer initialiser =
+            scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
         await initialiser.InitializeAsync();
+        await initialiser.TrySeedAsync();
     }
+
 }
 
 app.UseHttpsRedirection();
