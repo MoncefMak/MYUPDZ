@@ -32,6 +32,7 @@ public class IdentityService : IIdentityService
         {
             UserName = userName,
             Email = email,
+            LockoutEnabled = false
         };
 
         var result = await _userManager.CreateAsync(user, password);
@@ -138,22 +139,13 @@ public class IdentityService : IIdentityService
     {
         var user = await _userManager.FindByIdAsync(userId);
 
-        if (user == null)
-        {
-            return Result.Failure("User not found.");
-        }
-
+        if (user == null) return Result.Failure("User not found.");
         var claims = await _userManager.GetClaimsAsync(user);
+        // if user have permission claim 
         bool hasPermission = claims.Any(c => c.Type == "permission" && c.Value == permission);
-
-        if (hasPermission)
-        {
-            return Result.Failure("Permission already exists for the user.");
-        }
-
+        if (hasPermission) return Result.Failure("Permission already exists for the user.");
         // Add the permission claim to the user
         var result = await _userManager.AddClaimAsync(user, new Claim("permission", permission));
-
         return result.ToApplicationResult();
     }
 

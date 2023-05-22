@@ -21,7 +21,7 @@ public class AddPermissionsCommandHandler : ResponseHandler, IRequestHandler<Add
     #region Handel an Function
     public async Task<Response<string>> Handle(AddPermissionCommand request, CancellationToken cancellationToken)
     {
-        var result = await _identityService.AddUserPermissionAsync(request.Designation, request.UserId);
+        var result = await _identityService.AddUserPermissionAsync(request.UserId, request.Designation);
         if (result.Succeeded) return Created("Permission added successfully.");
         return ErrorIdentityEntity<string>(result);
 

@@ -19,7 +19,6 @@ public class DatabaseInitializer
         _context = context;
         _userManager = userManager;
         _roleManager = roleManager;
-
     }
 
     public async Task InitializeAsync()
@@ -48,11 +47,14 @@ public class DatabaseInitializer
         // Default users
         ApplicationUser administrator = new ApplicationUser
         {
-            UserName = "administrator@localhost",
-            Email = "administrator@localhost",
+            UserName = "administrator@myupdz",
+            Email = "administrator@myupdz",
+            LockoutEnabled = false // Set LockoutEnabled property to false
         };
 
-        if (_userManager.Users.All(u => u.UserName != administrator.UserName))
+        var userExists = _userManager.Users.Any(u => u.UserName == administrator.UserName);
+
+        if (!userExists)
         {
             var createUserResult = await _userManager.CreateAsync(administrator, "Administrator1!");
 
@@ -60,17 +62,27 @@ public class DatabaseInitializer
             {
                 await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
 
-                // Add permissions to the administrator user
-                foreach (string permission in new Permission())
-                {
-                    var existingClaims = await _userManager.GetClaimsAsync(administrator);
-                    if (!existingClaims.Any(c => c.Type == "permission" && c.Value == permission))
-                    {
-                        await _userManager.AddClaimAsync(administrator, new Claim("permission", permission));
-                    }
-                }
+                await AddPermissionsToUser(administrator);
+            }
+        }
+        else
+        {
+            var existingAdministrator = await _userManager.FindByNameAsync(administrator.UserName);
+            await AddPermissionsToUser(existingAdministrator);
+        }
+    }
+
+    private async Task AddPermissionsToUser(ApplicationUser user)
+    {
+        foreach (string permission in new Permission())
+        {
+            var existingClaims = await _userManager.GetClaimsAsync(user);
+            if (!existingClaims.Any(c => c.Type == "permission" && c.Value == permission))
+            {
+                await _userManager.AddClaimAsync(user, new Claim("permission", permission));
             }
         }
     }
 
 }
+
