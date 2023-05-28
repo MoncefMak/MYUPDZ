@@ -4,26 +4,33 @@ namespace MYUPDZ.Domain.Enums;
 
 public class Permission : IEnumerable<string>
 {
-    private static ReadOnlySpan<string> Actions => new[] { "VIEW", "ADD", "UPDATE", "DELETE", "ARCHIVE" };
+    private static string[] Actions = new[] { "VIEW", "ADD", "UPDATE", "DELETE", "ARCHIVE" };
 
-    private static ReadOnlySpan<string> Permissions => new[]
+    private static string[] Permissions = new[]
     {
         "CATEGORIE", "SOUS_CATEGORIE", "FONCTIONNAIRE", "PERMISSIONS"
     };
 
+    private List<string> additionalPermissions = new List<string> { "Another" };
+
+
     public IEnumerator<string> GetEnumerator()
     {
-        string[] result = new string[Actions.Length * Permissions.Length];
-        int i = 0;
         foreach (string permission in Permissions)
         {
             foreach (string action in Actions)
             {
-                result[i++] = action + "_" + permission;
+                yield return action + "_" + permission;
             }
         }
 
-        return ((IEnumerable<string>)result).GetEnumerator();
+        foreach (string permission in additionalPermissions)
+        {
+            foreach (string action in Actions)
+            {
+                yield return action + "_" + permission;
+            }
+        }
     }
 
     IEnumerator IEnumerable.GetEnumerator()
