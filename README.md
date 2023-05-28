@@ -16,5 +16,4 @@ Replace "Name-of-migration" with a descriptive name for your migration.
 
 By executing the above command, the migration will be generated and saved in the Persistence\Migrations directory of the MYUPDZ.Infrastructure project.
 
-Feel free to explore the code and customize it to suit your needs.
 
