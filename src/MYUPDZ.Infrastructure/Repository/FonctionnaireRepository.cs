@@ -30,14 +30,12 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
         return await _fonctionnaireRepository.ToListAsync();
     }
 
-    public async Task<bool> MatriculeExistAsync(string matricule)
+    public async Task<bool> MatriculeExistsAsync(string matricule)
     {
-        var fonctionnaireResult = await _fonctionnaireRepository.AsNoTracking().AsQueryable().Where(x => x.Matricule.Equals(matricule)).FirstOrDefaultAsync();
-        if (fonctionnaireResult != null) return true;
-        return false;
+        return await _fonctionnaireRepository.AsNoTracking().AnyAsync(x => x.Matricule == matricule);
     }
 
-    public async Task<bool> AddFonctionnaireAsync(string nom, string prenom, string email, string password, string matricule, DateTime dateEmbauche, decimal salaire)
+    public async Task<int> AddFonctionnaireAsync(string nom, string prenom, string email, string password, string matricule, DateTime dateEmbauche, decimal salaire)
     {
         using (var transaction = BeginTransaction())
         {
@@ -46,19 +44,25 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
                 matricule = string.IsNullOrEmpty(matricule) ? DateTime.UtcNow.Ticks.ToString() : matricule;
 
                 // Check if matricule already exists inside the transaction
-                if (await MatriculeExistAsync(matricule)) return false;
+                if (await MatriculeExistsAsync(matricule))
+                {
+                    throw new Exception("Matricule already exists."); // Or handle the duplicate matricule case differently
+                }
 
                 string userId = null;
 
                 if (!string.IsNullOrEmpty(password))
                 {
-                    // Créer un nouvel utilisateur.
+                    // Create a new user.
                     var (result, id) = await _identityService.CreateUserAsync(matricule, email, password);
-                    if (!result.Succeeded) throw new Exception("Failed to create user.");
+                    if (!result.Succeeded)
+                    {
+                        throw new Exception("Failed to create user.");
+                    }
                     userId = id;
                 }
 
-                // Créer un nouveau fonctionnaire.
+                // Create a new fonctionnaire.
                 var fonctionnaire = new Fonctionnaire(nom, prenom, matricule, email, dateEmbauche, salaire);
 
                 if (!string.IsNullOrEmpty(userId))
@@ -70,13 +74,54 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
 
                 Commit();
 
-                return true;
+                return fonctionnaire.Id;
             }
             catch (Exception ex)
             {
-                // Annulez la transaction en cas d'erreur.
+                // Rollback the transaction in case of an error.
                 RollBack();
-                return false;
+                throw; // Re-throw the exception to propagate it
+            }
+        }
+    }
+
+
+    public async Task EditFonctionnaireAsync(int id, string nom, string prenom, string email, string password, string matricule, DateTime dateEmbauche, decimal salaire)
+    {
+        using (var transaction = BeginTransaction())
+        {
+            try
+            {
+                if (await MatriculeExistIdAsync(id, matricule))
+                {
+                    throw new Exception("Duplicate matricule"); // Throw an exception for duplicate matricule case
+                }
+
+                var fonctionnaire = await GetByIdAsync(id);
+
+                if (fonctionnaire.HasUser && email != null && password != null)
+                {
+                    await _identityService.UpdateUserAsync(fonctionnaire.User, matricule, email, password);
+                }
+                else if (!fonctionnaire.HasUser && email != null && password != null)
+                {
+                    var (result, userId) = await _identityService.CreateUserAsync(matricule, email, password);
+                    if (!result.Succeeded)
+                    {
+                        throw new Exception("Failed to create user.");
+                    }
+                    fonctionnaire.AssignUser(userId);
+                }
+
+                fonctionnaire.Update(nom, prenom, matricule, email, dateEmbauche, salaire);
+                await UpdateAsync(fonctionnaire);
+
+                Commit();
+            }
+            catch (Exception ex)
+            {
+                RollBack();
+                throw; // Re-throw the exception to propagate it
             }
         }
     }
@@ -85,58 +130,14 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
     {
         return await _fonctionnaireRepository.AsNoTracking().AnyAsync(x => x.Id != id && x.Matricule == matricule);
     }
-
-    public async Task<bool> EditFonctionnaireAsync(int id, string nom, string prenom, string email, string password, string matricule, DateTime dateEmbauche, decimal salaire)
-    {
-        using (var transaction = BeginTransaction())
-        {
-            try
-            {
-                if (await MatriculeExistIdAsync(id, matricule))
-                {
-                    return false;
-                }
-                var fonctionnaire = await GetByIdAsync(id);
-                if (fonctionnaire.HasUser)
-                {
-                    if (email != null && password != null)
-                    {
-                        await _identityService.UpdateUserAsync(fonctionnaire.User, matricule, email, password);
-                    }
-                }
-                else
-                {
-                    if (email != null && password != null)
-                    {
-                        var (result, userId) = await _identityService.CreateUserAsync(matricule, email, password);
-                        if (!result.Succeeded)
-                        {
-                            throw new Exception("Failed to create user.");
-                        }
-                        fonctionnaire.AssignUser(userId);
-                    }
-                }
-
-                fonctionnaire.Update(nom, prenom, matricule, email, dateEmbauche, salaire);
-                await UpdateAsync(fonctionnaire);
-                Commit();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                RollBack();
-                return false;
-            }
-        }
-    }
-
-    public async Task<bool> ArchiveFonctionnaireAsync(int id)
+    public async Task ArchiveFonctionnaireAsync(int id)
     {
         using (var transaction = BeginTransaction())
         {
             try
             {
                 var fonctionnaire = await GetByIdAsync(id);
+
                 if (fonctionnaire.User != null)
                 {
                     await _identityService.BlockUserAsync(fonctionnaire.User);
@@ -144,15 +145,15 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
 
                 fonctionnaire.Archive();
                 await base.UpdateAsync(fonctionnaire);
-                // Enregistrer les modifications dans la base de données
+
+                // Save the changes to the database
                 await transaction.CommitAsync();
-                return true;
             }
             catch (Exception ex)
             {
-                // Annuler toutes les modifications apportées à la base de données
+                // Roll back all the changes made to the database
                 await transaction.RollbackAsync();
-                return false;
+                throw; // Re-throw the exception to propagate it
             }
         }
     }

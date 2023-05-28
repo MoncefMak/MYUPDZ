@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
-using MYUPDZ.Application.Common.Bases;
 using MYUPDZ.Application.Common.Interfaces.Repository;
 using MYUPDZ.Application.Common.Models;
 
 namespace MYUPDZ.Application.Categories.Queries.EventHandlersList;
 
-public class GetCategorieQueryHandler : ResponseHandler, IRequestHandler<GetCategorieListQuery, Response<List<CategorieDto>>>
+public class GetCategorieQueryHandler : IRequestHandler<GetCategorieListQuery, List<CategorieDto>>
 {
     #region Fields
     private readonly IRepositoryCategorie _repository;
@@ -22,11 +21,11 @@ public class GetCategorieQueryHandler : ResponseHandler, IRequestHandler<GetCate
     #endregion
 
     #region Handle functions
-    public async Task<Response<List<CategorieDto>>> Handle(GetCategorieListQuery request, CancellationToken cancellationToken)
+    public async Task<List<CategorieDto>> Handle(GetCategorieListQuery request, CancellationToken cancellationToken)
     {
         var categorieList = await _repository.GetAllAsync();
         var categorieListMapper = _mapper.Map<List<CategorieDto>>(categorieList);
-        return Success(categorieListMapper);
+        return categorieListMapper;
     }
     #endregion
 

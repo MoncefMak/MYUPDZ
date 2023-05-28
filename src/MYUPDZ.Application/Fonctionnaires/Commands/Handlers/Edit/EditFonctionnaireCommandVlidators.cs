@@ -1,16 +1,18 @@
 ﻿using FluentValidation;
+using MYUPDZ.Application.Common.Interfaces.Repository;
 
 namespace MYUPDZ.Application.Fonctionnaires.Commands.Handlers.Edit;
 
 public class EditFonctionnaireCommandVlidators : AbstractValidator<EditFonctionnaireCommand>
 {
     #region Fildes
-
+    IRepositoryFonctionnaire _repositoryFonctionnaire;
     #endregion
 
     #region Construction
-    public EditFonctionnaireCommandVlidators()
+    public EditFonctionnaireCommandVlidators(IRepositoryFonctionnaire repositoryFonctionnaire)
     {
+        _repositoryFonctionnaire = repositoryFonctionnaire;
         ApplayValidationRules();
     }
     #endregion
@@ -18,6 +20,11 @@ public class EditFonctionnaireCommandVlidators : AbstractValidator<EditFonctionn
     #region Actions
     public void ApplayValidationRules()
     {
+        RuleFor(x => x.Id)
+           .GreaterThan(0)
+           .MustAsync(async (id, cancellationToken) => await _repositoryFonctionnaire.ExistsAsync(id))
+           .WithMessage("Fonctionnaire not exist");
+
         RuleFor(x => x.Nom)
             .NotEmpty()
             .WithMessage("{PropertyName} is required.")

@@ -1,4 +1,5 @@
 using MYUPDZ.Api;
+using MYUPDZ.Api.Common;
 using MYUPDZ.Application;
 using MYUPDZ.Infrastructure;
 using MYUPDZ.Infrastructure.Persistance;
@@ -39,6 +40,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 

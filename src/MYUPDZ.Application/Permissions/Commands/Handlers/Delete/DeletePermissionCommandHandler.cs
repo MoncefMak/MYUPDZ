@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using MYUPDZ.Application.Common.Bases;
 using MYUPDZ.Application.Common.Interfaces;
+using MYUPDZ.Application.Common.Models;
 
 namespace MYUPDZ.Application.Permissions.Commands.Handlers.Delete;
 
-public class AddPermissionsCommandHandler : ResponseHandler, IRequestHandler<DeletePermissionCommand, Response<string>>
+public class AddPermissionsCommandHandler : IRequestHandler<DeletePermissionCommand, Result>
 {
     #region Fildes
     IIdentityService _identityService;
@@ -19,12 +19,10 @@ public class AddPermissionsCommandHandler : ResponseHandler, IRequestHandler<Del
 
 
     #region Handel an Function
-    public async Task<Response<string>> Handle(DeletePermissionCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(DeletePermissionCommand request, CancellationToken cancellationToken)
     {
         var result = await _identityService.DeleteUserPermissionAsync(request.Designation, request.UserId);
-        if (result.Succeeded) return Created("Permission added successfully.");
-        return ErrorIdentityEntity<string>(result);
-
+        return result;
     }
     #endregion
 

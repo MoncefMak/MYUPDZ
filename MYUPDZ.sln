@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MYUPDZ.Infrastructure", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MYUPDZ.Api", "src\MYUPDZ.Api\MYUPDZ.Api.csproj", "{55B40418-546A-46B7-931E-051AEE76FE41}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C552D95E-C5D5-4F17-A009-57EB339091B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MYUPDZ.Testing.Application.IntegrationTests", "tests\MYUPDZ.Testing.Application.IntegrationTests\MYUPDZ.Testing.Application.IntegrationTests.csproj", "{5F841001-EF65-41A5-8EC1-EA60B57F94D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +39,10 @@ Global
 		{55B40418-546A-46B7-931E-051AEE76FE41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55B40418-546A-46B7-931E-051AEE76FE41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55B40418-546A-46B7-931E-051AEE76FE41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F841001-EF65-41A5-8EC1-EA60B57F94D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F841001-EF65-41A5-8EC1-EA60B57F94D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F841001-EF65-41A5-8EC1-EA60B57F94D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F841001-EF65-41A5-8EC1-EA60B57F94D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +52,7 @@ Global
 		{6DF29A89-827C-4700-ADC7-B06E9D8B3CCF} = {C3524F57-630F-4DF2-B8C0-B2C0683E00C8}
 		{14A7C1E1-B342-4047-B5E0-251816F0B199} = {C3524F57-630F-4DF2-B8C0-B2C0683E00C8}
 		{55B40418-546A-46B7-931E-051AEE76FE41} = {C3524F57-630F-4DF2-B8C0-B2C0683E00C8}
+		{5F841001-EF65-41A5-8EC1-EA60B57F94D9} = {C552D95E-C5D5-4F17-A009-57EB339091B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EDEECE9D-2E45-49E6-9D4A-20E2DCFAF221}

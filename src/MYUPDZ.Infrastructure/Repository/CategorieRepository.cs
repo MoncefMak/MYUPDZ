@@ -27,16 +27,14 @@ public class CategorieRepository : GenericRepositoryAsync<Categorie>, IRepositor
 
     public async Task<bool> DesignationExistAsync(string designation)
     {
-        var categorieResult = await _categorieRepository.AsNoTracking().AsQueryable().Where(x => x.Designation.Equals(designation)).FirstOrDefaultAsync();
-        if (categorieResult != null) return true;
-        return false;
+        return !(await _categorieRepository.AsNoTracking().FirstOrDefaultAsync(x => x.Designation.Equals(designation)) != null);
     }
 
-    public async Task<bool> AddCategorieAsync(string designation)
+    public async Task<int> AddCategorie(string designation)
     {
-        if (await DesignationExistAsync(designation)) return false;
-        await base.AddAsync(new Categorie(designation));
-        return true;
+        var entity = new Categorie(designation);
+        await AddAsync(entity);
+        return entity.Id;
     }
 
     public async Task<bool> DesignationExistIdAsync(int id, string designation)
@@ -44,23 +42,19 @@ public class CategorieRepository : GenericRepositoryAsync<Categorie>, IRepositor
         return await _categorieRepository.AsNoTracking().AnyAsync(x => x.Id != id && x.Designation == designation);
     }
 
-    public async Task<bool> EditCategorieAsync(int id, string designation)
+    public async Task EditCategorieAsync(int id, string designation)
     {
-        if (await DesignationExistIdAsync(id, designation)) return false;
-        var categorie = await base.GetByIdAsync(id);
+        var categorie = await GetByIdAsync(id);
         categorie.Update(designation);
-        await base.UpdateAsync(categorie);
-        return true;
+        await UpdateAsync(categorie);
     }
 
-    public async Task<bool> ArchiveCategorieAsync(int id)
+    public async Task ArchiveCategorieAsync(int id)
     {
-        var categorie = await base.GetByIdAsync(id);
+        var categorie = await GetByIdAsync(id);
         categorie.Archive();
-        await base.UpdateAsync(categorie);
-        return true;
+        await UpdateAsync(categorie);
     }
-
     #endregion
 
 }

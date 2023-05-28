@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using MYUPDZ.Application.Common.Bases;
+using MYUPDZ.Application.Common.Models;
 
 namespace MYUPDZ.Application.Users.Querie.EventHandlerSiginIn;
 
-public class SignInCommandCommandHandler : ResponseHandler, IRequestHandler<SignInCommand, Response<string>>
+public class SignInCommandCommandHandler : IRequestHandler<SignInCommand, Result>
 {
     #region Fildes
     private readonly ISignInServices _signInServices;
@@ -18,24 +18,20 @@ public class SignInCommandCommandHandler : ResponseHandler, IRequestHandler<Sign
 
 
     #region Handel an Function
-    public async Task<Response<string>> Handle(SignInCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(SignInCommand request, CancellationToken cancellationToken)
     {
         var result = await _signInServices.LoginUserAsync(request.UserName, request.Password);
+
         if (result.Result.Succeeded)
         {
-            return Login("Connexion Successfully", result.Token);
+            return Result.Success("Connexion Successfully", result.Token);
         }
         else if (result.Result.Errors != null && result.Result.Errors.Any())
         {
-            return UnprocessableUser<string>(result.Result);
+            return Result.Failure(result.Result.Errors);
         }
-        else
-        {
-            return BadRequest<string>();
-        }
+        return Result.Failure("Unknown error occurred.");
     }
-
-
 
     #endregion
 

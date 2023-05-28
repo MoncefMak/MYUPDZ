@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using MYUPDZ.Application.Common.Bases;
 using MYUPDZ.Application.Common.Interfaces;
+using MYUPDZ.Application.Common.Models;
 
 namespace MYUPDZ.Application.Permissions.Commands.Handlers.Add;
 
-public class AddPermissionsCommandHandler : ResponseHandler, IRequestHandler<AddPermissionCommand, Response<string>>
+public class AddPermissionsCommandHandler : IRequestHandler<AddPermissionCommand, Result>
 {
     #region Fildes
     IIdentityService _identityService;
@@ -19,12 +19,10 @@ public class AddPermissionsCommandHandler : ResponseHandler, IRequestHandler<Add
 
 
     #region Handel an Function
-    public async Task<Response<string>> Handle(AddPermissionCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(AddPermissionCommand request, CancellationToken cancellationToken)
     {
         var result = await _identityService.AddUserPermissionAsync(request.UserId, request.Designation);
-        if (result.Succeeded) return Created("Permission added successfully.");
-        return ErrorIdentityEntity<string>(result);
-
+        return (result);
     }
     #endregion
 

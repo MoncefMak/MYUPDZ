@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
-using MYUPDZ.Application.Common.Bases;
 using MYUPDZ.Application.Common.Interfaces.Repository;
 using MYUPDZ.Application.Common.Models;
 
 namespace MYUPDZ.Application.Fonctionnaires.Queries.EventHandlersList;
 
-public class GetFonctionnaireQueryHandler : ResponseHandler, IRequestHandler<GetFonctionnaireListQuery, Response<List<FonctionnaireDto>>>
+public class GetFonctionnaireQueryHandler : IRequestHandler<GetFonctionnaireListQuery, List<FonctionnaireDto>>
 {
     #region Fields
     private readonly IRepositoryFonctionnaire _repositoryFonctionnaire;
@@ -22,11 +21,10 @@ public class GetFonctionnaireQueryHandler : ResponseHandler, IRequestHandler<Get
     #endregion
 
     #region Handle functions
-    public async Task<Response<List<FonctionnaireDto>>> Handle(GetFonctionnaireListQuery request, CancellationToken cancellationToken)
+    public async Task<List<FonctionnaireDto>> Handle(GetFonctionnaireListQuery request, CancellationToken cancellationToken)
     {
         var fonctionnaireList = await _repositoryFonctionnaire.GetAllAsync();
-        var fonctionnaireListMapper = _mapper.Map<List<FonctionnaireDto>>(fonctionnaireList);
-        return Success(fonctionnaireListMapper);
+        return _mapper.Map<List<FonctionnaireDto>>(fonctionnaireList);
     }
     #endregion
 

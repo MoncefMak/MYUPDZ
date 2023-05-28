@@ -1,10 +1,9 @@
 ﻿using MediatR;
-using MYUPDZ.Application.Common.Bases;
 using MYUPDZ.Application.Common.Interfaces.Repository;
 
 namespace MYUPDZ.Application.Categories.Commands.Handlers.Add;
 
-public class AddCategorieCommandHandler : ResponseHandler, IRequestHandler<AddCategorieCommand, Response<string>>
+public class AddCategorieCommandHandler : IRequestHandler<AddCategorieCommand, int>
 {
     #region Fildes
     private readonly IRepositoryCategorie _repositoryCategorie;
@@ -19,12 +18,10 @@ public class AddCategorieCommandHandler : ResponseHandler, IRequestHandler<AddCa
 
 
     #region Handel an Function
-    public async Task<Response<string>> Handle(AddCategorieCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(AddCategorieCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repositoryCategorie.AddCategorieAsync(request.Designation);
-        if (!result) return UnprocessableEntity<string>("Categorie With this Designation exist");
-        else if (result) return Created("Add Sussessfully");
-        return BadRequest<string>();
+        var result = await _repositoryCategorie.AddCategorie(request.Designation);
+        return result;
     }
     #endregion
 

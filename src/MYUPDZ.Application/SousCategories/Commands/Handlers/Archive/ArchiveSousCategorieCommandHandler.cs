@@ -1,10 +1,9 @@
 ﻿using MediatR;
-using MYUPDZ.Application.Common.Bases;
 using MYUPDZ.Application.Common.Interfaces.Repository;
 
 namespace MYUPDZ.Application.SousCategories.Commands.Handlers.Archive;
 
-public class ArchiveSousCategorieCommandHandler : ResponseHandler, IRequestHandler<ArchiveSousCategorieCommand, Response<string>>
+public class ArchiveSousCategorieCommandHandler : IRequestHandler<ArchiveSousCategorieCommand, Unit>
 {
     #region Fildes
     private readonly IRepositoryCategorie _repositoryCategorie;
@@ -19,10 +18,10 @@ public class ArchiveSousCategorieCommandHandler : ResponseHandler, IRequestHandl
 
 
     #region Handel an Function
-    public async Task<Response<string>> Handle(ArchiveSousCategorieCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(ArchiveSousCategorieCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repositoryCategorie.ArchiveCategorieAsync(request.Id);
-        return Success("Archived Successfully");
+        await _repositoryCategorie.ArchiveCategorieAsync(request.Id);
+        return Unit.Value;
     }
     #endregion
 

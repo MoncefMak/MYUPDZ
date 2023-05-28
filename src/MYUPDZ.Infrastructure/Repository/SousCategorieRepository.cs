@@ -23,16 +23,14 @@ public class SousCategorieRepository : GenericRepositoryAsync<SousCategorie>, IR
 
     public async Task<bool> DesignationExistAsync(string designation)
     {
-        var categorieResult = await _sousCategorieRepository.AsNoTracking().AsQueryable().Where(x => x.Designation.Equals(designation)).FirstOrDefaultAsync();
-        if (categorieResult != null) return true;
-        return false;
+        return !(await _sousCategorieRepository.AsNoTracking().FirstOrDefaultAsync(x => x.Designation.Equals(designation)) != null);
     }
 
-    public async Task<bool> AddSousCategorieAsync(string designation, int categorieId)
+    public async Task<int> AddSousCategorieAsync(string designation, int categorieId)
     {
-        if (await DesignationExistAsync(designation)) return false;
-        await base.AddAsync(new SousCategorie(designation, categorieId));
-        return true;
+        var entity = new SousCategorie(designation, categorieId);
+        await AddAsync(entity);
+        return entity.Id;
     }
 
     public async Task<bool> DesignationExistIdAsync(int id, string designation)
@@ -40,13 +38,11 @@ public class SousCategorieRepository : GenericRepositoryAsync<SousCategorie>, IR
         return await _sousCategorieRepository.AsNoTracking().AnyAsync(x => x.Id != id && x.Designation == designation);
     }
 
-    public async Task<bool> EditSousCategorieAsync(int id, string designation, int categorieId)
+    public async Task EditSousCategorieAsync(int id, string designation, int categorieId)
     {
-        if (await DesignationExistIdAsync(id, designation)) return false;
-        var sousCategorie = await base.GetByIdAsync(id);
+        var sousCategorie = await GetByIdAsync(id);
         sousCategorie.Update(designation, categorieId);
-        await base.UpdateAsync(sousCategorie);
-        return true;
+        await UpdateAsync(sousCategorie);
     }
 
 

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MYUPDZ.Api.Base;
+using MYUPDZ.Application.Common.Models;
 using MYUPDZ.Application.SousCategories.Commands.Handlers.Add;
 using MYUPDZ.Application.SousCategories.Commands.Handlers.Archive;
 using MYUPDZ.Application.SousCategories.Commands.Handlers.Edit;
@@ -20,34 +21,37 @@ namespace MYUPDZ.Api.Controllers
         }
 
         [HttpGet(Router.SousCategorieRoute.List)]
-        public async Task<IActionResult> GetCategorieList()
+        public async Task<List<SousCategorieDto>> GetCategorieList()
         {
-            return NewResult(await Mediator.Send(new GetSousCategoriesListQuery()));
+            return await Mediator.Send(new GetSousCategoriesListQuery());
         }
 
         [HttpGet(Router.SousCategorieRoute.GetById)]
-        public async Task<IActionResult> GetCategorieById([FromRoute] int id)
+        public async Task<SousCategorieDto> GetCategorieById([FromRoute] int id)
         {
-            return NewResult(await Mediator.Send(new GetSousCategorieSingleQuery(id)));
+            return await Mediator.Send(new GetSousCategorieSingleQuery(id));
         }
 
         [HttpPost(Router.SousCategorieRoute.Add)]
-        public async Task<IActionResult> CreateSousCategorieBy([FromBody] AddSousCategorieCommand command)
+        public async Task<ActionResult<int>> CreateSousCategorieBy([FromBody] AddSousCategorieCommand command)
         {
-            return NewResult(await Mediator.Send(command));
+            return await Mediator.Send(command);
         }
 
         [HttpPut(Router.SousCategorieRoute.Edit)]
-        public async Task<IActionResult> EditCategorieBy([FromBody] EditSousCategorieCommand command)
+        public async Task<ActionResult> EditCategorieBy([FromBody] EditSousCategorieCommand command)
         {
-            return NewResult(await Mediator.Send(command));
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         [HttpDelete(Router.SousCategorieRoute.Archive)]
-        public async Task<IActionResult> ArchiveCategorieBy([FromBody] ArchiveSousCategorieCommand command)
+        public async Task<ActionResult> ArchiveCategorieBy([FromBody] ArchiveSousCategorieCommand command)
         {
-            return NewResult(await Mediator.Send(command));
+            await Mediator.Send(command);
+            return NoContent();
         }
+
     }
 
 }

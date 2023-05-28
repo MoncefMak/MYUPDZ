@@ -1,11 +1,10 @@
 ﻿using MediatR;
-using MYUPDZ.Application.Common.Bases;
 using MYUPDZ.Application.Common.Behaviours;
 
 namespace MYUPDZ.Application.Fonctionnaires.Commands.Handlers.Add;
 
 [Authorize(Policy = "ADD_FONCTIONNAIRE")]
-public class AddFonctionnaireCommand : IRequest<Response<string>>
+public class AddFonctionnaireCommand : IRequest<int>
 {
     public string Nom { get; set; }
     public string Prenom { get; set; }

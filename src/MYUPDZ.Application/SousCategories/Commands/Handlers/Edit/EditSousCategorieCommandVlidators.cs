@@ -7,12 +7,15 @@ public class EditSousCategorieCommandVlidators : AbstractValidator<EditSousCateg
 {
     #region Fildes
     public readonly IRepositoryCategorie _categorieRepository;
+    public readonly IRepositorySousCategorie _categorieSousRepository;
+
     #endregion
 
     #region Construction
-    public EditSousCategorieCommandVlidators(IRepositoryCategorie repositoryCategorie)
+    public EditSousCategorieCommandVlidators(IRepositoryCategorie repositoryCategorie, IRepositorySousCategorie repositorySousCategorie)
     {
         _categorieRepository = repositoryCategorie;
+        _categorieSousRepository = _categorieSousRepository;
         ApplayValidationRules();
     }
     #endregion
@@ -20,6 +23,10 @@ public class EditSousCategorieCommandVlidators : AbstractValidator<EditSousCateg
     #region Actions
     public void ApplayValidationRules()
     {
+        RuleFor(x => x.Id)
+            .GreaterThan(0)
+            .MustAsync(async (id, cancellationToken) => await _categorieSousRepository.ExistsAsync(id))
+            .WithMessage("Sous Categorie not exist");
 
         RuleFor(x => x.Designation)
             .NotEmpty()

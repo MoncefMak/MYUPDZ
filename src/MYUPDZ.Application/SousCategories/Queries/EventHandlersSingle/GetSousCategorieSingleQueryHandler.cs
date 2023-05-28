@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
-using MYUPDZ.Application.Common.Bases;
+using MYUPDZ.Application.Common.Exceptions;
 using MYUPDZ.Application.Common.Interfaces.Repository;
 using MYUPDZ.Application.Common.Models;
 
 namespace MYUPDZ.Application.SousCategories.Queries.EventHandlersSingle;
 
-public class GetSousCategorieSingleQueryHandler : ResponseHandler, IRequestHandler<GetSousCategorieSingleQuery, Response<SousCategorieDto>>
+public class GetSousCategorieSingleQueryHandler : IRequestHandler<GetSousCategorieSingleQuery, SousCategorieDto>
 {
     #region Fields
     private readonly IRepositorySousCategorie _repository;
@@ -22,12 +22,11 @@ public class GetSousCategorieSingleQueryHandler : ResponseHandler, IRequestHandl
     #endregion
 
     #region Handle functions
-    public async Task<Response<SousCategorieDto>> Handle(GetSousCategorieSingleQuery request, CancellationToken cancellationToken)
+    public async Task<SousCategorieDto> Handle(GetSousCategorieSingleQuery request, CancellationToken cancellationToken)
     {
         var categorie = await _repository.GetByIdAsync(request.Id);
-        if (categorie == null) return NotFound<SousCategorieDto>("Object");
-        var categorieMapper = _mapper.Map<SousCategorieDto>(categorie);
-        return Success(categorieMapper);
+        if (categorie == null) throw new NotFoundException("SousCategorie not found.");
+        return _mapper.Map<SousCategorieDto>(categorie);
     }
     #endregion
 

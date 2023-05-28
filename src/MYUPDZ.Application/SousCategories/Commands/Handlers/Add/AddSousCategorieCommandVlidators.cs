@@ -7,12 +7,14 @@ public class AddSousCategorieCommandVlidators : AbstractValidator<AddSousCategor
 {
     #region Fildes
     public readonly IRepositoryCategorie _categorieRepository;
+    public readonly IRepositorySousCategorie _repositorySousCategorie;
     #endregion
 
     #region Construction
-    public AddSousCategorieCommandVlidators(IRepositoryCategorie categorieRepository)
+    public AddSousCategorieCommandVlidators(IRepositoryCategorie categorieRepository, IRepositorySousCategorie repositorySousCategorie)
     {
         _categorieRepository = categorieRepository;
+        _repositorySousCategorie = repositorySousCategorie;
         ApplayValidationRules();
     }
     #endregion
@@ -24,7 +26,9 @@ public class AddSousCategorieCommandVlidators : AbstractValidator<AddSousCategor
             .NotEmpty()
             .WithMessage("{PropertyName} is required.")
             .MaximumLength(50)
-            .WithMessage("{PropertyName} Max length 50.");
+            .WithMessage("{PropertyName} Max length 50.")
+            .MustAsync(async (designation, cancellationToken) => await _repositorySousCategorie.DesignationExistAsync(designation))
+            .WithMessage("Categorie not exist");
 
         RuleFor(x => x.CategorieId)
          .GreaterThan(0)
