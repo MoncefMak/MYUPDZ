@@ -15,10 +15,9 @@ public class Categorie : BaseAuditableEntity
         Designation = designation;
     }
 
-    public Categorie Update(string designation)
+    public void Update(string designation)
     {
         Designation = designation;
-        return this;
     }
 
 

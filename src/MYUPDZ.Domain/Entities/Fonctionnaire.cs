@@ -20,7 +20,7 @@ public class Fonctionnaire : BaseAuditableEntity
         Salaire = salaire;
     }
 
-    public Fonctionnaire Update(string nom, string prenom, string matricule, string email, DateTime dateEmbauche, decimal salaire)
+    public void Update(string nom, string prenom, string matricule, string email, DateTime dateEmbauche, decimal salaire)
     {
         Nom = nom;
         Prenom = prenom;
@@ -28,7 +28,6 @@ public class Fonctionnaire : BaseAuditableEntity
         Email = email;
         DateEmbauche = dateEmbauche;
         Salaire = salaire;
-        return this;
     }
 
 

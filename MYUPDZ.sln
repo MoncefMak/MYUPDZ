@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MYUPDZ.Api", "src\MYUPDZ.Ap
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C552D95E-C5D5-4F17-A009-57EB339091B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MYUPDZ.Testing.Application.IntegrationTests", "tests\MYUPDZ.Testing.Application.IntegrationTests\MYUPDZ.Testing.Application.IntegrationTests.csproj", "{5F841001-EF65-41A5-8EC1-EA60B57F94D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MYUPDZ.Testing.Application.IntegrationTests", "tests\MYUPDZ.Testing.Application.IntegrationTests\MYUPDZ.Testing.Application.IntegrationTests.csproj", "{5F841001-EF65-41A5-8EC1-EA60B57F94D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

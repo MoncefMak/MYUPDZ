@@ -35,7 +35,7 @@ public class SousCategorieRepository : GenericRepositoryAsync<SousCategorie>, IR
 
     public async Task<bool> DesignationExistIdAsync(int id, string designation)
     {
-        return await _sousCategorieRepository.AsNoTracking().AnyAsync(x => x.Id != id && x.Designation == designation);
+        return !(await _sousCategorieRepository.AsNoTracking().AnyAsync(x => x.Id != id && x.Designation == designation));
     }
 
     public async Task EditSousCategorieAsync(int id, string designation, int categorieId)

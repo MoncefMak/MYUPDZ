@@ -12,7 +12,6 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
     #region Fields
     private readonly DbSet<Fonctionnaire> _fonctionnaireRepository;
     private readonly IIdentityService _identityService;
-
     #endregion
 
     #region Constructors
@@ -24,17 +23,14 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
     #endregion
 
     #region Action
-
     public async Task<List<Fonctionnaire>> GetAllAsync()
     {
         return await _fonctionnaireRepository.ToListAsync();
     }
-
     public async Task<bool> MatriculeExistsAsync(string matricule)
     {
         return await _fonctionnaireRepository.AsNoTracking().AnyAsync(x => x.Matricule == matricule);
     }
-
     public async Task<int> AddFonctionnaireAsync(string nom, string prenom, string email, string password, string matricule, DateTime dateEmbauche, decimal salaire)
     {
         using (var transaction = BeginTransaction())
@@ -84,8 +80,6 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
             }
         }
     }
-
-
     public async Task EditFonctionnaireAsync(int id, string nom, string prenom, string email, string password, string matricule, DateTime dateEmbauche, decimal salaire)
     {
         using (var transaction = BeginTransaction())
@@ -125,7 +119,6 @@ public class FonctionnaireRepository : GenericRepositoryAsync<Fonctionnaire>, IR
             }
         }
     }
-
     public async Task<bool> MatriculeExistIdAsync(int id, string matricule)
     {
         return await _fonctionnaireRepository.AsNoTracking().AnyAsync(x => x.Id != id && x.Matricule == matricule);

@@ -39,7 +39,7 @@ public class CategorieRepository : GenericRepositoryAsync<Categorie>, IRepositor
 
     public async Task<bool> DesignationExistIdAsync(int id, string designation)
     {
-        return await _categorieRepository.AsNoTracking().AnyAsync(x => x.Id != id && x.Designation == designation);
+        return !(await _categorieRepository.AsNoTracking().AnyAsync(x => x.Id != id && x.Designation == designation));
     }
 
     public async Task EditCategorieAsync(int id, string designation)

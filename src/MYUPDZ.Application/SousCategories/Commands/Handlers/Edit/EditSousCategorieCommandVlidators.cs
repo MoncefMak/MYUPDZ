@@ -15,7 +15,7 @@ public class EditSousCategorieCommandVlidators : AbstractValidator<EditSousCateg
     public EditSousCategorieCommandVlidators(IRepositoryCategorie repositoryCategorie, IRepositorySousCategorie repositorySousCategorie)
     {
         _categorieRepository = repositoryCategorie;
-        _categorieSousRepository = _categorieSousRepository;
+        _categorieSousRepository = repositorySousCategorie;
         ApplayValidationRules();
     }
     #endregion

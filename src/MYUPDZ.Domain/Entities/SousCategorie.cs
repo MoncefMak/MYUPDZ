@@ -15,11 +15,10 @@ public class SousCategorie : BaseAuditableEntity
         CategorieId = categorieId;
     }
 
-    public SousCategorie Update(string designation, int categorieId)
+    public void Update(string designation, int categorieId)
     {
         Designation = designation;
         CategorieId = categorieId;
-        return this;
     }
 
     public string Designation { get; private set; }
