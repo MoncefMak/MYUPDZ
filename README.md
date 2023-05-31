@@ -9,8 +9,6 @@ To perform a migration, follow these steps:
 Open the command line or terminal.
 Navigate to the project root directory.
 Run the following command:
-css
-Copy code
 dotnet ef migrations add "Name-of-migration" --project src\MYUPDZ.Infrastructure --startup-project src\MYUPDZ.Api --output-dir Persistence\Migrations
 Replace "Name-of-migration" with a descriptive name for your migration.
 
